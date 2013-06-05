@@ -159,7 +159,53 @@ void List::sort_selection() {
 }
 
 void List::sort_quick() {
-	cout << "sort_quick" << endl;
+	if ( count > 0 ) {
+		quick_helper(first, last, count);
+	}
+}
+
+void List::quick_helper( node* start, node* last, int nodeCount ) {
+
+	node* left = start;
+	int leftCount = 1;
+	node* right = last;
+	int rightCount = 1;
+
+	int halfCount = nodeCount/2;
+	// cout <<  nodeCount << " " << halfCount << endl;
+	node* pivot = start;
+	while( halfCount-- > 0 ) {
+		pivot = pivot->next;
+	}
+
+	while(leftCount + rightCount <= nodeCount) {
+		while( left->number < pivot->number ) {
+			left = left->next;
+			leftCount++;
+		}
+		while( right->number > pivot->number ) {
+			right = right->prev;
+			rightCount++;
+		}
+
+		if ( leftCount + rightCount <= nodeCount ) {
+			int tmp = left->number;
+			left->number  = right->number;
+			right->number = tmp;
+			left = left->next;
+			right = right->prev;
+			leftCount++;
+			rightCount++;
+		}
+	}
+	// this->print();
+	if ( leftCount < nodeCount ) {
+		quick_helper( start, left, leftCount );
+	}
+	if ( rightCount < nodeCount ) {
+		quick_helper( right, last, rightCount );
+	}
+
 }
 
 void List::sort_insertion() {

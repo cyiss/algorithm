@@ -28,6 +28,7 @@ class List {
 
 		uint64_t start_time;
 		node* merge_helper(node* start, int length);
+		void quick_helper( node* start, node* last, int nodeCount );
 
 	protected:
 		void sort_bubble();
